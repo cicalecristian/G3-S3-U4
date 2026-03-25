@@ -1,6 +1,13 @@
 package cristiancicale;
 
 import cristiancicale.dao.EventoDAO;
+import cristiancicale.dao.LocationDAO;
+import cristiancicale.dao.PartecipazioneDAO;
+import cristiancicale.dao.PersonaDAO;
+import cristiancicale.entities.Evento;
+import cristiancicale.entities.Partecipazione;
+import cristiancicale.entities.Persona;
+import cristiancicale.entities.Stato;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -11,65 +18,28 @@ public class Application {
     public static void main(String[] args) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EventoDAO eventsDAO = new EventoDAO(entityManager);
+        PersonaDAO personaDAO = new PersonaDAO(entityManager);
+        LocationDAO locationDAO = new LocationDAO(entityManager);
+        PartecipazioneDAO partecipazioneDAO = new PartecipazioneDAO(entityManager);
 
-//        Evento e1 = new Evento(
-//                "Concerto Rock",
-//                LocalDate.of(2026, 6, 15),
-//                "Concerto all'aperto con band locali",
-//                TipoEvento.PUBBLICO,
-//                500
-//        );
-//
-//        Evento e2 = new Evento(
-//                "Workshop Java",
-//                LocalDate.of(2026, 4, 10),
-//                "Corso intensivo su Spring Boot",
-//                TipoEvento.PRIVATO,
-//                30
-//        );
-//
-//        Evento e3 = new Evento(
-//                "Fiera del Libro",
-//                LocalDate.of(2026, 5, 20),
-//                "Evento culturale con autori e stand",
-//                TipoEvento.PUBBLICO,
-//                200
-//        );
-//
-//        Evento e4 = new Evento(
-//                "Cena Aziendale",
-//                LocalDate.of(2026, 12, 18),
-//                "Cena di fine anno per i dipendenti",
-//                TipoEvento.PRIVATO,
-//                100
-//        );
-//
-//        Evento e5 = new Evento(
-//                "Maratona",
-//                LocalDate.of(2026, 9, 5),
-//                "Gara podistica cittadina",
-//                TipoEvento.PUBBLICO,
-//                1000
-//        );
+//        Location l1 = new Location("Il Gabbiano", "Napoli");
+//        locationDAO.save(l1);
 
+//        Persona p1 = new Persona("Mario", "Rossi", "mariorossi@gmail.com", LocalDate.of(2000, 6, 14), Sesso.M);
+//        personaDAO.save(p1);
+
+//        Location l1FromDB = locationDAO.findById(1);
+//        Evento e1 = new Evento("Matrimonio", LocalDate.of(2026, 10, 20), "vista sul mare", TipoEvento.PRIVATO, 100, l1FromDB);
 //        eventsDAO.save(e1);
-//        eventsDAO.save(e2);
-//        eventsDAO.save(e3);
-//        eventsDAO.save(e4);
-//        eventsDAO.save(e5);
 
-//        try {
-//            Evento e1find = eventsDAO.findById(2);
-//            System.out.println(e1find);
-//        } catch (NotFoundException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//
-//        try {
-//            eventsDAO.findByIdAndDelete(10);
-//        } catch (NotFoundException ex) {
-//            System.out.println(ex.getMessage());
-//        }
+        Persona p1FromDB = personaDAO.findById(1);
+        Evento e1FromDB = eventsDAO.findById(1);
+        Partecipazione part1 = new Partecipazione(p1FromDB, e1FromDB, Stato.DA_CONFERMARE);
+//        partecipazioneDAO.save(part1);
+
+        Partecipazione part1FromDB = partecipazioneDAO.findById(1);
+        e1FromDB.getListaPartecipazioni().add(part1);
+        p1FromDB.getListaPartecipazioni().add(part1);
 
         entityManager.close();
         entityManagerFactory.close();

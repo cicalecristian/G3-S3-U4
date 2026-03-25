@@ -3,6 +3,7 @@ package cristiancicale.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,10 +22,11 @@ public class Persona {
     @Column(nullable = false, length = 50)
     private String email;
     private LocalDate dataDiNascita;
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Sesso sesso;
     @OneToMany(mappedBy = "persona")
-    private List<Partecipazione> listaPartecipazioni;
+    private List<Partecipazione> listaPartecipazioni = new ArrayList<>();
 
     public Persona() {
     }

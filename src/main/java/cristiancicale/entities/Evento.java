@@ -3,6 +3,7 @@ package cristiancicale.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,7 +29,7 @@ public class Evento {
     @Column(name = "numero_massimo_partecipanti")
     private int numeroMassimoPartecipanti;
     @OneToMany(mappedBy = "evento")
-    private List<Partecipazione> listaPartecipazioni;
+    private List<Partecipazione> listaPartecipazioni = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "location_id")
     private Location location;
@@ -76,6 +77,10 @@ public class Evento {
 
     public Location getLocation() {
         return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public List<Partecipazione> getListaPartecipazioni() {

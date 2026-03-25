@@ -20,6 +20,7 @@ public class Partecipazione {
     @JoinColumn(name = "event_id", nullable = false)
     private Evento evento;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Stato stato;
 

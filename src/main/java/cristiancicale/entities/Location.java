@@ -2,6 +2,7 @@ package cristiancicale.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class Location {
     @Column(nullable = false, length = 20)
     private String citta;
     @OneToMany(mappedBy = "location")
-    private List<Evento> eventi;
+    private List<Evento> eventi = new ArrayList<>();
 
     public Location() {
     }
