@@ -11,10 +11,15 @@ public class Partecipazione {
 
     @Column(name = "partecipazione_id")
     private long id;
-    @Column(nullable = false)
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "persona_id", nullable = false)
     private Persona persona;
-    @Column(nullable = false)
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "event_id", nullable = false)
     private Evento evento;
+
     @Column(nullable = false)
     private Stato stato;
 

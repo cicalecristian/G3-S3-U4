@@ -23,6 +23,7 @@ public class Persona {
     private LocalDate dataDiNascita;
     @Column(nullable = false)
     private Sesso sesso;
+    @OneToMany(mappedBy = "persona")
     private List<Partecipazione> listaPartecipazioni;
 
     public Persona() {
